@@ -7,7 +7,7 @@ type Props = {
 
 export default function Posts({ posts }: Props) {
   return (
-    <main className='container mx-auto grid grid-cols-1 divide-y divide-blue-100'>
+    <article className='container mx-auto grid grid-cols-1 divide-y divide-blue-100'>
       {posts?.length > 0 ? (
         posts.map((post) => (
           <Link key={post._id} to={post.slug.current}>
@@ -17,6 +17,6 @@ export default function Posts({ posts }: Props) {
       ) : (
         <div className='p-4 text-red-500'>No posts found</div>
       )}
-    </main>
+    </article>
   );
 }

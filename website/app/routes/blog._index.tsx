@@ -3,14 +3,20 @@ import { useLoaderData } from "@remix-run/react";
 import type { SanityDocument } from "@sanity/client";
 
 import Posts from "~/components/Posts";
+import Slug from "~/components/layout/BreadcrumbHeader";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
 import { POSTS_QUERY } from "~/sanity/queries";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Blog | Evan Jones dot dev" },
+    // Other meta tags
+    {
+      name: "keywords",
+      content:
+        "software engineering, DevSecOps, machine learning, LLMs, programming, professional development, public sector",
+    },
   ];
 };
 
@@ -32,5 +38,10 @@ export default function Blog() {
     return <div>Loading ...</div>;
   }
 
-  return data ? <Posts posts={data} /> : null;
+  return (
+    <div>
+      <Slug />
+      {data ? <Posts posts={data} /> : null}
+    </div>
+  );
 }

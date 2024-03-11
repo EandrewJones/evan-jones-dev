@@ -3,11 +3,11 @@ import BreadcrumbHeader from "~/components/layout/BreadcrumbHeader";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Evan Jones dot dev" },
-    { name: "Evan Jones' Personal Site", content: "<FILL WITH SEO>" },
+    { title: "Research | Evan Jones dot dev" },
+    { name: "Evan Jones' Personal Site", content: "Welcome to my brain!" },
   ];
 };
 
-export default function Index() {
+export default function Research() {
   return <BreadcrumbHeader />;
 }

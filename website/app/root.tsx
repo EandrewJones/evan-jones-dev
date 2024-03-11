@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -17,9 +16,10 @@ import {
 } from "remix-themes";
 import { Suspense, lazy } from "react";
 import stylesheet from "./tailwind.css";
-import Layout from "./components/Layout";
+import Layout from "~/components/layout/Layout";
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
-import { themeSessionResolver } from "./sessions.server";
+import { themeSessionResolver } from "~/sessions.server";
+import { cn } from "./lib/utils";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -43,7 +43,7 @@ export function App() {
   const [theme] = useTheme();
 
   return (
-    <html lang='en' className={clsx(theme)}>
+    <html lang='en' className={cn(theme)}>
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -51,7 +51,7 @@ export function App() {
         <PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
         <Links />
       </head>
-      <body>
+      <body className='prose dark:prose-invert max-w-none bg-background dark:bg-background text-foreground'>
         <Layout>
           <Outlet />
         </Layout>

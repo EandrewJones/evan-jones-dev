@@ -11,7 +11,7 @@ export default function Post({ post }: { post: SanityDocument }) {
 
   return (
     <main className='container mx-auto prose prose-lg p-4'>
-      {title ? <h1>{title}</h1> : null}
+      {title ? <h1 className='font-serif'>{title}</h1> : null}
       {mainImage ? (
         <img
           className='float-left m-0 w-1/3 mr-4 rounded-lg'

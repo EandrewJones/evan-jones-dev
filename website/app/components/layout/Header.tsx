@@ -8,7 +8,7 @@ export function Header() {
       className={cn([
         "fixed top-0 w-full h-[72px] z-30",
         "bg-background lg:bg-transparent backdrop-blur-md",
-        "transition-all duration-700",
+        // "transition-all duration-300",
         "border-b border-primary-outline",
       ])}
     >

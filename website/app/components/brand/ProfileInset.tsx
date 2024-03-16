@@ -30,14 +30,29 @@ export default function ProfileInset() {
           >
             Evan Jones
           </h5>
-          <p className='m-0 text-sm text-center text-foreground'>
-            Software Engineer <span className='font-bold'>@</span> ARLIS
+          <p className='m-0 my-2 text-sm text-center text-foreground'>
+            Full-Stack Software Engineer & PI{" "}
+            <span className='font-bold'>@</span>{" "}
+            <a
+              href='https://www.arlis.umd.edu'
+              className={cn([
+                "text-accent-foreground/70 hover:text-accent-foreground",
+                "focus:text-accent-foreground font-bold",
+              ])}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              ARLIS
+            </a>
           </p>
-          <p className='my-2 text-xs text-center text-foreground'>
+          <p className='my-3 text-xs text-center text-muted-foreground'>
             Former cofounder at{" "}
             <a
               href='https://queststudio.io'
-              className='text-accent-foreground/70 hover:text-accent-foreground focus:text-accent-foreground font-bold'
+              className={cn([
+                "text-accent-foreground/70 hover:text-accent-foreground",
+                "focus:text-accent-foreground font-bold",
+              ])}
               target='_blank'
               rel='noopener noreferrer'
             >

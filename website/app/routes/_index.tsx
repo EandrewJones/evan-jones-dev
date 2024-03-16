@@ -12,6 +12,9 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <>
+      {/* Page Content Here */}
+
+      {/* Aside */}
       <Aside>
         <ProfileInset />
       </Aside>

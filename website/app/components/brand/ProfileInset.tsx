@@ -1,6 +1,4 @@
 import { cn } from "app/lib/utils";
-import { Terminal } from "lucide-react";
-import { Link } from "@remix-run/react";
 import { Separator } from "~/components/ui/separator";
 import Headshot from "~/images/evan-headshot.jpg";
 import Coco from "~/images/coco-headshot.jpg";

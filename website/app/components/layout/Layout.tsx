@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "./Header";
 import Sidebar from "./Sidebar";
+import BreadcrumbHeader from "./BreadcrumbHeader";
 
 type Props = {};
 
@@ -13,7 +14,10 @@ export default function Layout({ children }: React.PropsWithChildren<Props>) {
           <Sidebar />
           <main className='lg:pl-[14rem]'>
             <section className='mx-auto px-0 py-6 lg:px-16 lg:py-10 max-w-none xl:ml-0 xl:mr-[15.5rem]'>
-              {children}
+              <article className='max-w-none min-h-[calc(100vh-19rem)]'>
+                <BreadcrumbHeader />
+                {children}
+              </article>
             </section>
           </main>
         </div>

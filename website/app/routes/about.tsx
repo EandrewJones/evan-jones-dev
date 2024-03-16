@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import BreadcrumbHeader from "~/components/layout/BreadcrumbHeader";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,5 +8,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function About() {
-  return <BreadcrumbHeader />;
+  return <></>;
 }

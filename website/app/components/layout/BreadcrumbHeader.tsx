@@ -1,5 +1,6 @@
 import { useLocation } from "@remix-run/react";
 
+// TODO: Find a way to remove this hard-coding
 export const pathToTitleMap: { [x: string]: string } = {
   "/": "Home",
   "/about": "About",

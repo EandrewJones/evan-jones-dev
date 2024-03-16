@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-import BreadcrumbHeader from "~/components/layout/BreadcrumbHeader";
+import Aside from "~/components/layout/Aside";
+import ProfileInset from "~/components/brand/ProfileInset";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,5 +10,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <BreadcrumbHeader />;
+  return (
+    <>
+      <Aside>
+        <ProfileInset />
+      </Aside>
+    </>
+  );
 }

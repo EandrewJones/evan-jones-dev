@@ -53,6 +53,9 @@ module.exports = {
           //   },
         },
       },
+      rules: {
+        "react/prop-types": "off",
+      },
     },
 
     // Typescript
@@ -74,6 +77,9 @@ module.exports = {
             map: [["~", "./app"]],
           },
         },
+      },
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off",
       },
       extends: [
         "plugin:@typescript-eslint/recommended",

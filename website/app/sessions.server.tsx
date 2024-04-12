@@ -3,6 +3,10 @@ import { createThemeSessionResolver } from "remix-themes";
 
 // You can default to 'development' if process.env.NODE_ENV is not set
 const isProduction = process.env.NODE_ENV === "production";
+const sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  throw new Error("SESSION_SECRET must be set");
+}
 
 const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -10,9 +14,10 @@ const sessionStorage = createCookieSessionStorage({
     path: "/",
     httpOnly: true,
     sameSite: "lax",
-    secrets: ["s3cr3t"],
+    secrets: [sessionSecret],
+    secure: true,
     // Set domain and secure only if in production
-    ...(isProduction ? { domain: "evan-jones.dev", secure: true } : {}),
+    ...(isProduction ? { domain: "evanjones.dev", secure: true } : {}),
   },
 });
 

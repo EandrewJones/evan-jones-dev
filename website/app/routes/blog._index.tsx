@@ -3,7 +3,6 @@ import { useLoaderData } from "@remix-run/react";
 import type { SanityDocument } from "@sanity/client";
 
 import Posts from "~/components/Posts";
-import Slug from "~/components/layout/BreadcrumbHeader";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
 import { POSTS_QUERY } from "~/sanity/queries";
@@ -38,10 +37,5 @@ export default function Blog() {
     return <div>Loading ...</div>;
   }
 
-  return (
-    <div>
-      <Slug />
-      {data ? <Posts posts={data} /> : null}
-    </div>
-  );
+  return <div>{data ? <Posts posts={data} /> : null}</div>;
 }

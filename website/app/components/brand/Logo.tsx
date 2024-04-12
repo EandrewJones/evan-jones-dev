@@ -6,7 +6,10 @@ import { useEffect, useState } from "react";
 
 export function Logo() {
   const [theme] = useTheme();
-  const [banner, setBanner] = useState<string>(BannerLight);
+  const [banner, setBanner] = useState<string>(
+    theme === "dark" ? BannerDark : BannerLight
+  );
+
   useEffect(() => {
     if (theme === "dark") {
       setBanner(BannerDark);
@@ -14,6 +17,7 @@ export function Logo() {
       setBanner(BannerLight);
     }
   }, [theme]);
+
   return (
     <Link to='/' className='flex items-center' aria-current='page'>
       <span className='sr-only'>{"Evan Jones's Site"}</span>

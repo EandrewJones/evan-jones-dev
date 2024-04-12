@@ -1,5 +1,12 @@
-import type { MetaFunction } from "@remix-run/node";
-import BreadcrumbHeader from "~/components/layout/BreadcrumbHeader";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { SanityDocument } from "@sanity/client";
+import CustomPortableText from "~/components/CustomPortableText";
+import ProfileInset from "~/components/brand/ProfileInset";
+import Aside from "~/components/layout/Aside";
+import { useQuery } from "~/sanity/loader";
+import { loadQuery } from "~/sanity/loader.server";
+import { ABOUT_QUERY } from "~/sanity/queries";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,6 +15,30 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const initial = await loadQuery<SanityDocument>(ABOUT_QUERY, params);
+
+  return { initial, query: ABOUT_QUERY, params };
+};
+
 export default function About() {
-  return <BreadcrumbHeader />;
+  const { initial, query, params } = useLoaderData<typeof loader>();
+  const { data, loading } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  });
+
+  return (
+    <>
+      {/* Page Content Here */}
+      {loading && !data ? (
+        "Loading..."
+      ) : data ? (
+        <CustomPortableText content={data.body} />
+      ) : null}
+      {/* Aside */}
+      <Aside>
+        <ProfileInset />
+      </Aside>
+    </>
+  );
 }

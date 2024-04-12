@@ -18,8 +18,8 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
+import { Separator } from "~/components/ui/separator";
 import { cn } from "~/lib/utils";
-import { Separator } from "../ui/separator";
 
 const navLinks: {
   title: string;
@@ -146,6 +146,8 @@ function SocialList() {
           className={cn(["px-0 py-2 m-0 w-full", "hover:bg-secondary/70"])}
         >
           <NavigationMenuLink
+            target='_blank'
+            rel='noopener noreferrer'
             href={link.href}
             className={cn([
               navigationMenuTriggerStyle(),

@@ -2,7 +2,7 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { SanityDocument } from "@sanity/client";
 import CustomPortableText from "~/components/CustomPortableText";
-import ProfileInset from "~/components/brand/ProfileInset";
+import ProfileInset from "~/components/ProfileInset";
 import Aside from "~/components/layout/Aside";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";

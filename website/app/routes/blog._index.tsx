@@ -1,11 +1,16 @@
-import type { MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import type { SanityDocument } from "@sanity/client";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { json, useLoaderData, useSearchParams } from "@remix-run/react";
+import { SanityDocument } from "@sanity/client";
+import { useMemo, useState } from "react";
 
 import Posts from "~/components/Posts";
+import CategorySearchAndFilter from "~/components/PostsInset";
+import Aside from "~/components/layout/Aside";
+import { filterPosts } from "~/lib/utils";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
 import { POSTS_QUERY } from "~/sanity/queries";
+import type { Post } from "~/sanity/types";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,23 +24,96 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async () => {
-  const initial = await loadQuery<SanityDocument[]>(POSTS_QUERY);
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const initial = await loadQuery<SanityDocument<Post>[]>(POSTS_QUERY);
 
-  return { initial, query: POSTS_QUERY, params: {} };
+  const tags = new Set<string>();
+  for (const post of initial.data) {
+    for (const category of post.categories ?? []) {
+      tags.add(category.title.replace(/[\u{0080}-\u{FFFF}]/gu, ""));
+    }
+  }
+
+  return json({
+    initial,
+    tags: Array.from(tags),
+    groqQuery: POSTS_QUERY,
+    params,
+  });
 };
 
 export default function Blog() {
-  const { initial, query, params } = useLoaderData<typeof loader>();
-  const { data, loading } = useQuery<typeof initial.data>(query, params, {
-    initial,
-  });
+  const { initial, tags, groqQuery, params } = useLoaderData<typeof loader>();
+  const { data, loading } = useQuery<SanityDocument<Post>[]>(
+    groqQuery,
+    params,
+    {
+      initial,
+    }
+  );
 
-  // `data` should contain the initial data from the loader
-  // `loading` will only be true when Visual Editing is enabled
-  if (loading && !data) {
-    return <div>Loading ...</div>;
+  const [searchParams] = useSearchParams();
+  const [queryValue, setQuery] = useState<string>(() => {
+    return searchParams.get("q") ?? "";
+  });
+  const query = queryValue.trim();
+
+  const matchingPosts = useMemo(() => {
+    return filterPosts(data ?? [], query);
+  }, [data, query]);
+
+  function toggleTag(tag: string) {
+    setQuery((q) => {
+      // create a regexp so that we can replace multiple occurences (`react node react`)
+      const expression = new RegExp(tag, "ig");
+
+      const newQuery = expression.test(q)
+        ? q.replace(expression, "")
+        : `${q} ${tag}`;
+
+      // trim and remove subsequent spaces
+      return newQuery.replace(/\s+/g, " ").trim();
+    });
   }
 
-  return <div>{data ? <Posts posts={data} /> : null}</div>;
+  const isSearching = query.length > 0;
+  const visibleTags = isSearching
+    ? new Set(
+        matchingPosts
+          .flatMap((post) => post.categories.map((c) => c.title))
+          .filter(Boolean)
+      )
+    : new Set(tags);
+
+  return (
+    <>
+      <article>
+        <p>
+          Topics I commonly like to write about include LLMOps, learning new
+          skills, DS{"&"}A, and projects I am working on. Everything else falls
+          into a musings bucket.
+        </p>
+        <p>
+          I prefer a published post over a perfect post, so think of them as
+          parts of an on-going conversation. Ideas, like code bases, mature
+          through continued practice and refactoring.
+        </p>
+        {data && !loading ? (
+          <Posts posts={matchingPosts} />
+        ) : (
+          <div>Loading ...</div>
+        )}
+      </article>
+      <Aside>
+        <CategorySearchAndFilter
+          tags={tags}
+          toggleTag={toggleTag}
+          queryValue={queryValue}
+          setQuery={setQuery}
+          searchQuery={query}
+          visibleTags={visibleTags}
+        />
+      </Aside>
+    </>
+  );
 }

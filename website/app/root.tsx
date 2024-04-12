@@ -51,7 +51,7 @@ export function App() {
         <PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
         <Links />
       </head>
-      <body className='prose dark:prose-invert max-w-none bg-background dark:bg-background text-foreground'>
+      <body className='prose dark:prose-invert prose-headings:font-serif max-w-none bg-background dark:bg-background text-foreground'>
         <Layout>
           <Outlet />
         </Layout>

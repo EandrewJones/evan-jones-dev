@@ -3,6 +3,8 @@ import { Terminal } from "lucide-react";
 import { Link } from "@remix-run/react";
 import { Separator } from "~/components/ui/separator";
 import Headshot from "~/images/evan-headshot.jpg";
+import Coco from "~/images/coco-headshot.jpg";
+import Bryce from "~/images/bryce-headshot.jpg";
 
 export default function ProfileInset() {
   return (
@@ -19,7 +21,7 @@ export default function ProfileInset() {
           decoding='async'
         />
 
-        {/* Email contact */}
+        {/* About */}
         <div>
           <h5
             className={cn([
@@ -65,6 +67,26 @@ export default function ProfileInset() {
         <Separator className='w-3/4 my-2 mx-auto' />
 
         {/* Family photos */}
+        <div className='flex flex-row justify-items-center'>
+          <img
+            className='block rounded-full border-2 border-ring/60 h-16 w-16 m-0 mx-auto'
+            src={Coco}
+            alt='Coco'
+            width='60'
+            height='60'
+            loading='lazy'
+            decoding='async'
+          />
+          <img
+            className='block rounded-full border-2 border-ring/60 h-16 w-16 m-0 mx-auto'
+            src={Bryce}
+            alt='Bryce'
+            width='60'
+            height='60'
+            loading='lazy'
+            decoding='async'
+          />
+        </div>
       </div>
     </div>
   );

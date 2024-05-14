@@ -1,12 +1,12 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import Aside from "~/components/layout/Aside";
-import ProfileInset from "~/components/brand/ProfileInset";
-import { loadQuery } from "~/sanity/loader.server";
-import { SanityDocument } from "@sanity/client";
-import { HOME_QUERY } from "~/sanity/queries";
 import { useLoaderData } from "@remix-run/react";
-import { useQuery } from "~/sanity/loader";
+import { SanityDocument } from "@sanity/client";
 import CustomPortableText from "~/components/CustomPortableText";
+import ProfileInset from "~/components/ProfileInset";
+import Aside from "~/components/layout/Aside";
+import { loadQuery } from "~/sanity/loader.server";
+import { HOME_QUERY } from "~/sanity/queries";
+import { useQuery } from "~/sanity/loader";
 
 export const meta: MetaFunction = () => {
   return [

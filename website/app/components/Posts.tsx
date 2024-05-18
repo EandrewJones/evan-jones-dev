@@ -3,10 +3,10 @@ import { client } from "~/sanity/client";
 import { Link } from "@remix-run/react";
 import { getImageDimensions } from "@sanity/asset-utils";
 import { calendarDate, cn } from "~/lib/utils";
-import type { Post } from "~/sanity/types";
+import type { PostPreview } from "~/sanity/types";
 
 type Props = {
-  posts: Post[];
+  posts: PostPreview[];
 };
 
 export default function Posts({ posts }: Props) {

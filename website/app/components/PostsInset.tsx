@@ -29,7 +29,7 @@ export default function CategorySearchAndFilter({
             "font-serif font-semibold uppercase",
           ])}
         >
-          Categories
+          Search & Filter
         </h5>
         <form action='/blog' method='GET' onSubmit={(e) => e.preventDefault()}>
           <div className='relative'>

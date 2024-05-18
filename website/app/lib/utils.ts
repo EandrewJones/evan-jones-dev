@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { matchSorter, rankings } from "match-sorter";
 import { twMerge } from "tailwind-merge";
 import type { SanityDocument } from "@sanity/client";
-import type { Post } from "~/sanity/types";
+import type { PostPreview } from "~/sanity/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -13,7 +13,7 @@ export function calendarDate(date: string) {
   return dayjs(date).format("dddd MMMM D, YYYY");
 }
 
-export function filterPosts(posts: Array<Post>, searchString: string) {
+export function filterPosts(posts: Array<PostPreview>, searchString: string) {
   if (!searchString) return posts;
 
   const options = {
@@ -65,4 +65,27 @@ export function filterPosts(posts: Array<Post>, searchString: string) {
     );
   }
   return Array.from(new Set([...allResults, ...individualWordResults]));
+}
+
+export const textToSlug = (text: string) => {
+  return text
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+};
+
+export function blocksToText(blocks: any, opts = {}) {
+  const defaults = { nonTextBehavior: "remove" };
+  const options = Object.assign({}, defaults, opts);
+  return blocks
+    .map((block: any) => {
+      if (block._type !== "block" || !block.children) {
+        return options.nonTextBehavior === "remove"
+          ? ""
+          : `[${block._type} block]`;
+      }
+
+      return block.children.map((child: any) => child.text).join("");
+    })
+    .join("\n\n");
 }

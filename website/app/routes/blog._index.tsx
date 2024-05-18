@@ -10,7 +10,7 @@ import { filterPosts } from "~/lib/utils";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
 import { POSTS_QUERY } from "~/sanity/queries";
-import type { Post } from "~/sanity/types";
+import type { PostPreview } from "~/sanity/types";
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const initial = await loadQuery<SanityDocument<Post>[]>(POSTS_QUERY);
+  const initial = await loadQuery<SanityDocument<PostPreview>[]>(POSTS_QUERY);
 
   const tags = new Set<string>();
   for (const post of initial.data) {
@@ -44,7 +44,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function Blog() {
   const { initial, tags, groqQuery, params } = useLoaderData<typeof loader>();
-  const { data, loading } = useQuery<SanityDocument<Post>[]>(
+  const { data, loading } = useQuery<SanityDocument<PostPreview>[]>(
     groqQuery,
     params,
     {
@@ -87,23 +87,21 @@ export default function Blog() {
 
   return (
     <>
-      <article>
-        <p>
-          Topics I commonly like to write about include LLMOps, learning new
-          skills, DS{"&"}A, and projects I am working on. Everything else falls
-          into a musings bucket.
-        </p>
-        <p>
-          I prefer a published post over a perfect post, so think of them as
-          parts of an on-going conversation. Ideas, like code bases, mature
-          through continued practice and refactoring.
-        </p>
-        {data && !loading ? (
-          <Posts posts={matchingPosts} />
-        ) : (
-          <div>Loading ...</div>
-        )}
-      </article>
+      <p>
+        Topics I commonly like to write about include LLMOps, learning new
+        skills, DS{"&"}A, and projects I am working on. Everything else falls
+        into a musings bucket.
+      </p>
+      <p>
+        I prefer a published post over a perfect post, so think of them as parts
+        of an on-going conversation. Ideas, like code bases, mature through
+        continued practice and refactoring.
+      </p>
+      {data && !loading ? (
+        <Posts posts={matchingPosts} />
+      ) : (
+        <div>Loading ...</div>
+      )}
       <Aside>
         <CategorySearchAndFilter
           tags={tags}

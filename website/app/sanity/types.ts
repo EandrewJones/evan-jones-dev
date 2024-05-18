@@ -1,6 +1,6 @@
 import type { SanityDocument } from "@sanity/client";
 
-export type Post = SanityDocument<{
+export type PostPreview = SanityDocument<{
   title: string;
   description: string | null;
   slug: SanityDocument<{ current: string; _type: "slug" }>;

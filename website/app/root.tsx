@@ -18,6 +18,7 @@ import { Suspense, lazy } from "react";
 import stylesheet from "./tailwind.css";
 import Layout from "~/components/layout/Layout";
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
+import { Toaster } from "~/components/ui/toaster";
 import { themeSessionResolver } from "~/sessions.server";
 import { cn } from "./lib/utils";
 
@@ -68,6 +69,7 @@ export function App() {
         )}
         <Scripts />
         <LiveReload />
+        <Toaster />
       </body>
     </html>
   );

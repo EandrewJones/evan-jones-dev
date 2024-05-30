@@ -44,7 +44,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function Blog() {
   const { initial, tags, groqQuery, params } = useLoaderData<typeof loader>();
-  const { data, loading } = useQuery<SanityDocument<PostPreview>[]>(
+  const { data, loading } = useQuery<PostPreview[]>(
     groqQuery,
     params,
     {

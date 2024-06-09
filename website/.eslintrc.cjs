@@ -1,10 +1,10 @@
 /**
  * This is intended to be a basic starting point for linting in your app.
  * It relies on recommended configs out of the box for simplicity, but you can
- * and should modify this configuration to best suit your team's needs.
+ * and should modify this configuration to best suit your team"s needs.
  */
 
-/** @type {import('eslint').Linter.Config} */
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
   parserOptions: {
@@ -21,18 +21,30 @@ module.exports = {
   },
 
   // Base config
-  extends: ["eslint:recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended",
+    ],
 
   overrides: [
     // React
     {
       files: ["**/*.{js,jsx,ts,tsx}"],
-      plugins: ["react", "jsx-a11y"],
+      plugins: [
+        "@typescript-eslint", 
+        "react",
+        "jsx-a11y",
+        "simple-import-sort",
+        "tailwindcss"
+    ],  
       extends: [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
+        
       ],
       settings: {
         react: {
@@ -43,18 +55,11 @@ module.exports = {
           { name: "Link", linkAttribute: "to" },
           { name: "NavLink", linkAttribute: "to" },
         ],
-        "import/resolver": {
-          //   typescript: {
-          //     alwaysTryTypes: true,
-          //     project: "./",
-          //   },
-          //   alias: {
-          //     map: [["~", "./app"]],
-          //   },
-        },
       },
       rules: {
         "react/prop-types": "off",
+        "jsx-a11y/click-events-have-key-events": "warn",
+        "jsx-a11y/no-noninteractive-element-interactions": "warn",
       },
     },
 

@@ -1,14 +1,45 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'openSourceProject',
-  title: 'Open Source Project',
+  name: 'researchProject',
+  title: 'Research Project',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+    }),
+    defineField({
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'string',
+    }),
+    defineField({
+      name: 'authors',
+      title: 'Authors',
+      type: 'string',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Working Paper', value: 'Working Paper'},
+          {title: 'Published', value: 'Published'},
+        ],
+      },
+    }),
+    defineField({
+      name: 'publication',
+      title: 'Publication',
+      type: 'string',
+    }),
+    defineField({
+      name: 'datePublished',
+      title: 'Date Published',
+      type: 'date',
     }),
     defineField({
       name: 'description',
@@ -39,40 +70,19 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'category'}}],
     }),
     defineField({
-      name: 'role',
-      title: 'Role',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'Contributor', value: 'Contributor'},
-          {title: 'Committer', value: 'Committer'},
-          {title: 'PMC', value: 'PMC'},
-          {title: 'Author', value: 'Author'},
-          {title: 'Member', value: 'Member'},
-        ],
-      },
-    }),
-    defineField({
-      name: 'organization',
-      title: 'Organization',
-      type: 'number',
-      options: {
-        list: [
-          {title: 'Apache Software Foundation', value: 0},
-          {title: 'Cloud Native Computing Foundation', value: 1},
-          {title: 'None', value: 2},
-        ],
-      },
-    }),
-    defineField({
-      name: 'github',
-      title: 'github',
+      name: 'link',
+      title: 'Link',
       type: 'url',
     }),
     defineField({
-      name: 'priority',
-      title: 'Priority',
-      type: 'number',
+      name: 'manuscript',
+      title: 'Manuscript',
+      type: 'file',
+    }),
+    defineField({
+      name: 'slides',
+      title: 'Slides',
+      type: 'file',
     }),
   ],
 

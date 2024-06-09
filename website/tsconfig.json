@@ -1,5 +1,14 @@
 {
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "public",
+    "remix",
+    "remix-ssr",
+    ".cache"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
@@ -10,6 +19,7 @@
     "resolveJsonModule": true,
     "target": "ES2022",
     "module": "ES2022",
+    "pretty": true,
     "strict": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,6 +27,11 @@
     "paths": {
       "~/*": ["./app/*"]
     },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./remix.env.d.ts",
+      "./lib/types.d.ts"
+    ],
 
     // Remix takes care of building everything in `remix build`.
     "noEmit": true

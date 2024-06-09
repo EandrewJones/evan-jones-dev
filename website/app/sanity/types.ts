@@ -1,40 +1,59 @@
-import type { SanityDocument } from "@sanity/client";
+import type { SanityDocument } from '@sanity/client'
 
-export type PostPreview = SanityDocument<{
-  title: string;
-  description: string | null;
-  slug: SanityDocument<{ current: string; _type: "slug" }>;
-  mainImage: { _type: "image"; asset: any };
-  categories: Array<
+export type SearchableDocument = SanityDocument<{
+    title: string
+    description: string | null
+    categories: Array<
+        SanityDocument<{
+            title: string
+        }>
+    >
+}>
+
+export type PostPreview = SearchableDocument &
     SanityDocument<{
-      title: string;
+        slug: SanityDocument<{ current: string; _type: 'slug' }>
+        mainImage: { _type: 'image'; asset: any }
+        publishedAt: string
     }>
-  >;
-  publishedAt: string;
-}>;
 
 enum OSSRole {
-  Contributor = "Contributor",
-  Committer = "Committer",
-  PMC = "PMC",
-  AUTHOR = "Author",
+    Contributor = 'Contributor',
+    Committer = 'Committer',
+    PMC = 'PMC',
+    Author = 'Author',
+    Member = 'Member',
 }
 
 enum OSSOrg {
-  ASF = "Apache Software Foundation",
-  CNCF = "Cloud Native Computing Foundation",
-  None = "",
+    ASF = 'Apache Software Foundation',
+    CNCF = 'Cloud Native Computing Foundation',
+    None = '',
 }
-export type OpenSourceProject = SanityDocument<{
-  title: string;
-  description: string | null;
-  slug: SanityDocument<{ current: string; _type: "slug" }>;
-  mainImage: { _type: "image"; asset: any };
-  categories: Array<
+export type OpenSourceProject = SearchableDocument &
     SanityDocument<{
-      title: string;
+        slug: SanityDocument<{ current: string; _type: 'slug' }>
+        mainImage: { _type: 'image'; asset: any }
+        role: OSSRole
+        organization: OSSOrg
+        github: string
     }>
-  >;
-  role: OSSRole,
-  organization: OSSOrg,
-}>;
+
+enum PublicationStatus {
+    WorkingPaper = 'Working Paper',
+    Published = 'Published',
+}
+
+export type ResearchProject = SearchableDocument &
+    SanityDocument<{
+        subtitle: string
+        authors: string
+        status: PublicationStatus
+        publication: string
+        datePublished: string
+        slug: SanityDocument<{ current: string; _type: 'slug' }>
+        mainImage: { _type: 'image'; asset: any }
+        link: string | null
+        manuscriptURL: string | null
+        slidesURL: string | null
+    }>
